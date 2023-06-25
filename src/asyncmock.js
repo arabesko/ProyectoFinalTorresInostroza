@@ -1,4 +1,4 @@
-const misProductos = [
+const misArticulos = [
     { id: "1", nombre: "Garbanzos", precio: 1300, img: "../img/garbanzos.png", idCat: "1" },
     { id: "2", nombre: "Lentejas", precio: 2500, img: "../img/lentejas.png", idCat: "1" },
     { id: "3", nombre: "Porotos", precio: 2500, img: "../img/porotos.png", idCat: "1" },
@@ -10,30 +10,30 @@ const misProductos = [
 ]
 
 //Obtiene todos los productos
-export const getProductos = () => {
+export const obtenetProductos = () => {
     return new Promise((res) => {
         setTimeout(() => {
-            res(misProductos);
+            res(misArticulos);
         }, 500)
     })
 }
 
 //Obtiene un producto
-export const getUnProducto = (id) => {
+export const ObtenerUnProducto = (id) => {
     return new Promise( resolve => {
         setTimeout(() => {
-            const producto = misProductos.find(prod => prod.id ===id);
+            const producto = misArticulos.find(prod => prod.id ===id);
             resolve(producto);
         }, 500);
     })
 }
 
 //Obtiene una categoria
-export const getProductosPorCategoria = (idCategoria) => {
+export const obtenerCategorias = (idCategoria) => {
     return new Promise( resolve => {
         setTimeout(() => {
-            const productosCategoria = misProductos.filter(prod => prod.idCat === idCategoria);
-            resolve(productosCategoria);
+            const categorias = misArticulos.filter(prod => prod.idCat === idCategoria);
+            resolve(categorias);
         }, 500);
     })
 }

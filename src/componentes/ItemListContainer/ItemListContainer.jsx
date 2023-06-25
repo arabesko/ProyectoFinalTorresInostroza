@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react"
 import ItemList from "../ItemList/ItemList"
-import { getProductos, getProductosPorCategoria } from "../../asyncmock"
+import { obtenetProductos, obtenerCategorias } from "../../asyncmock"
 import { useParams } from "react-router-dom"
 
 const ItemListContainer = () => {
@@ -9,7 +9,7 @@ const ItemListContainer = () => {
     const {idCategoria} = useParams();
 
     useEffect(() => {
-        const funcionProductos = idCategoria ? getProductosPorCategoria : getProductos;
+        const funcionProductos = idCategoria ? obtenerCategorias : obtenetProductos;
 
         funcionProductos(idCategoria)
             .then(res => setProductos(res))

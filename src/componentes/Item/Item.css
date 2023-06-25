@@ -12,6 +12,7 @@
 
 .imgProducto {
     width: 150px;
+    height: 150px;
     object-fit: contain;
 }
 
@@ -23,4 +24,6 @@
     border-radius: 10px 10px 0px 0px;
     border: none;
     cursor: pointer;
+    text-align: center;
+    height: 30px;
 }
