@@ -5,6 +5,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom"
 import './App.css'
 import { CarritoProvider } from "./context/CarritoContext"
 import Cart from "./componentes/Cart/Cart"
+import Productos from "./componentes/Productos/Productos"
 
 const App = () => {
   return (
@@ -19,8 +20,10 @@ const App = () => {
               <Route path="/cart" element={<Cart/>}/>
               <Route path="/checkout" element={<h2>Falta por hacer</h2>}/>
             </Routes>
-          </CarritoProvider>
+      </CarritoProvider>
+
       </BrowserRouter>
+
         
     </div>
   )
