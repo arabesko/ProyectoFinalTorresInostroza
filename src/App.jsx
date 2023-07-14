@@ -6,6 +6,7 @@ import './App.css'
 import { CarritoProvider } from "./context/CarritoContext"
 import Cart from "./componentes/Cart/Cart"
 import Productos from "./componentes/Productos/Productos"
+import Checkout from "./componentes/Checkout/Checkout"
 
 const App = () => {
   return (
@@ -18,7 +19,7 @@ const App = () => {
               <Route path="/categoria/:idCategoria" element={<ItemListContainer/>}/>
               <Route path="/item/:idItem" element={<ItemDetailContainer/>}/>
               <Route path="/cart" element={<Cart/>}/>
-              <Route path="/checkout" element={<h2>Falta por hacer</h2>}/>
+              <Route path="/checkout" element={<Checkout/>}/>
             </Routes>
       </CarritoProvider>
 

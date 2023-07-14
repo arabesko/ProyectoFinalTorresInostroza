@@ -26,9 +26,6 @@ const ItemDetail = ({id, nombre, precio, img, stock, des}) => {
         <p> {des} </p>
         <img src={img} alt={nombre}/>
         {
-          //Logica de montaje y desmontaje del componente
-        }
-        {
           agregarCantidad > 0 ? (<Link to="/cart"> Terminar Compra </Link>) : (<ItemCount inicial={1} stock={stock} funcionAgregar={manejadorCantidad}/>)
         }
     </div>
