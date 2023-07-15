@@ -1,7 +1,8 @@
 import { useState, useContext } from "react"
 import { CarritoContext } from "../../context/CarritoContext"
 import { base } from "../../services/config"
-import { collection, addDoc } from "firebase/firestore"
+import { collection, addDoc, updateDoc, doc, getDoc } from "firebase/firestore"
+import './Checkout.css'
 
 const Checkout = () => {
     const {carrito, vaciarCarrito, cantidadTotal} = useContext(CarritoContext);
@@ -25,6 +26,7 @@ const Checkout = () => {
             return;
         }
 
+        //Objeto para guardar la orden de compra
         const orden = {
             items: carrito.map( producto => ({
                 id: producto.item.id,
@@ -36,7 +38,34 @@ const Checkout = () => {
             apellido,
             telefono,
             email,
+            fecha: new Date()
         };
+
+        Promise.all(
+            orden.items.map(async (productoOrden) => {
+                const productoRef= doc(base, "inventario", productoOrden.id);
+                const productoDoc = await getDoc(productoRef);
+                const stockActual = productoDoc.data().stock;
+                await updateDoc(productoRef, {
+                    stock: stockActual - productoOrden.cantidad
+                })
+            })
+        )
+            .then(() => {
+                addDoc(collection(base, "ordenesCompra"), orden)
+                    .then((docRef) => {
+                        setOrderId(docRef.id);
+                        vaciarCarrito();
+                    })
+                    .catch((error) => {
+                        console.log("Error al crear la orden", error);
+                        setError("Error al crear la orden");
+                    })
+            })
+            .catch((error) => {
+                console.log("Error al actualizar el stock", error);
+                setError("Error al actualizar el stock");
+            })
 
         addDoc(collection(base, "ordenesCompra"), orden)
             .then(docRef => {
@@ -54,7 +83,7 @@ const Checkout = () => {
         <h2>Checkout</h2>
         <form onSubmit={manejadorFormulario}>
             {carrito.map(producto => (
-                <div>
+                <div key={producto.id}>
                     <p>
                         {producto.item.nombre} x {producto.cantidad}
                     </p>
@@ -84,7 +113,7 @@ const Checkout = () => {
                 <input type="email" value={emailConfirm} onChange={(e) => setEmailConfirm(e.target.value)}/>
             </div>
 
-            <button type="submit"> Finalizar Compra </button>
+            <button className="agregarCarro" type="submit"> Finalizar Compra </button>
             {
                 error && <p style={{color:"red"}}> {error} </p>
             }
